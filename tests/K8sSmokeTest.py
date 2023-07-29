@@ -14,13 +14,13 @@ sleep_interval = 10
 
 def get_grid_status():
     try:
-        response = urlopen('%s/status' % (SELENIUM_GRID_URL))
-        print("Response code: " + str(response.getcode()))
-        response = urlopen('%s/status' % (SELENIUM_GRID_URL))
+        response = urlopen(f'{SELENIUM_GRID_URL}/status')
+        print(f"Response code: {str(response.getcode())}")
+        response = urlopen(f'{SELENIUM_GRID_URL}/status')
         encoded_response = response.read()
         encoding = response.headers.get_content_charset('utf-8')
         decoded_response = encoded_response.decode(encoding)
-        print("Response: " + decoded_response)
+        print(f"Response: {decoded_response}")
         response_json = json.loads(decoded_response)
         return response_json['value']['ready']
     except Exception as e:
@@ -40,7 +40,7 @@ def wait_for_grid_to_get_ready():
         print("Grid is not in ready state. Waiting for {0} secs....".format(sleep_interval))
         time.sleep(sleep_interval)
         result = get_grid_status()
-    print("Grid Status: " + str(result))
+    print(f"Grid Status: {str(result)}")
     print("Grid is in Ready state now")
 
 
